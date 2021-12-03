@@ -3,6 +3,9 @@ data "ec_stack" "latest" {
   region        = "westeurope"
 }
 
+provider "ec" {
+}
+
 resource "ec_deployment" "example_azure" {
   # Optional name.
   name = "example-setup"
