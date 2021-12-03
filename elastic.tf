@@ -1,6 +1,6 @@
 data "ec_stack" "latest" {
   version_regex = "latest"
-  region        = "westeurope"
+  region        = "azure-westeurope"
 }
 
 provider "ec" {
