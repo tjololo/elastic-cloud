@@ -14,47 +14,47 @@ resource "ec_deployment" "example_azure" {
 
   elasticsearch {
     autoscale = "false"
-    
+
     topology {
-      id = "hot_content"
-      size = "1g"
+      id         = "hot_content"
+      size       = "1g"
       zone_count = 1
     }
 
     topology {
-      id  = "warm"
+      id   = "warm"
       size = "0g"
     }
 
     topology {
-      id = "cold"
+      id   = "cold"
       size = "0g"
     }
 
     topology {
-      id = "coordinating"
+      id   = "coordinating"
       size = "0g"
     }
 
     topology {
-      id = "frozen"
+      id   = "frozen"
       size = "0g"
     }
 
     topology {
-      id = "ml"
+      id   = "ml"
       size = "0g"
     }
 
     topology {
-      id = "master"
+      id   = "master"
       size = "0g"
     }
   }
 
   kibana {
     topology {
-      size = "1g"
+      size       = "1g"
       zone_count = 1
     }
   }
@@ -66,7 +66,7 @@ resource "ec_deployment" "example_azure" {
   }
   enterprise_search {
     topology {
-      size = "2g"
+      size       = "2g"
       zone_count = 1
     }
 
