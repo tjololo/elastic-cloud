@@ -15,3 +15,5 @@ terraform {
   }
 }
 
+provider "ec" {
+}
