@@ -35,7 +35,7 @@ jobs:
       - name: Terraform Plan
         id: plan
         if: github.event_name == 'pull_request'
-        run: terraform plan -no-color -out=plan.json
+        run: terraform plan -no-color
         continue-on-error: true
 
       - uses: actions/github-script@0.9.0
@@ -73,8 +73,9 @@ jobs:
 
       - name: Generate Infracost JSON
         if: github.event_name == 'pull_request'
-        run: infracost breakdown --path plan.json --format json --out-file /tmp/infracost.json
-        working-directory: ${{ env.working-directory }}
+        run: infracost breakdown --format json --out-file /tmp/infracost.json
+        env:
+          INFRACOST_TERRAFORM_CLOUD_TOKEN: ${{ secrets.TF_API_TOKEN }} 
         # Env vars can be set using the usual GitHub Actions syntax
         # See the list of supported Infracost env vars here: https://www.infracost.io/docs/integrations/environment_variables/
         # env:
