@@ -4,7 +4,7 @@ data "ec_stack" "latest" {
 }
 
 resource "ec_deployment" "example_azure" {
-  # Optional name.
+  count = var.deploy_count
   name = "example-setup"
 
   # Mandatory fields
@@ -17,8 +17,8 @@ resource "ec_deployment" "example_azure" {
 
     topology {
       id         = "hot_content"
-      size       = "4g"
-      zone_count = 2
+      size       = var.elastic_memory_size
+      zone_count = var.elastic_zone_count
     }
 
     topology {
@@ -66,8 +66,8 @@ resource "ec_deployment" "example_azure" {
   }
   enterprise_search {
     topology {
-      size       = "2g"
-      zone_count = 2
+      size       = var.enterprise_search_size
+      zone_count = var.enterprise_search_zone_count
     }
 
   }
