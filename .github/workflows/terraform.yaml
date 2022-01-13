@@ -73,7 +73,7 @@ jobs:
 
       - name: Generate Infracost JSON
         if: github.event_name == 'pull_request'
-        run: infracost breakdown --format json --out-file /tmp/infracost.json
+        run: infracost breakdown --path=./ --format json --out-file /tmp/infracost.json
         env:
           INFRACOST_TERRAFORM_CLOUD_TOKEN: ${{ secrets.TF_API_TOKEN }}
 
