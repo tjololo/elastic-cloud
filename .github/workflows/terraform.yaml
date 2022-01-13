@@ -78,14 +78,14 @@ jobs:
       #   env:
       #     INFRACOST_TERRAFORM_CLOUD_TOKEN: ${{ secrets.TF_API_TOKEN }}
 
-      # See https://github.com/infracost/actions/tree/master/comment
-      # for other inputs such as target-type.
-      - name: Post Infracost comment
-        if: github.event_name == 'pull_request'
-        uses: infracost/actions/comment@v1
-        with:
-          path: /tmp/infracost.json
-          behavior: update
+      # # See https://github.com/infracost/actions/tree/master/comment
+      # # for other inputs such as target-type.
+      # - name: Post Infracost comment
+      #   if: github.event_name == 'pull_request'
+      #   uses: infracost/actions/comment@v1
+      #   with:
+      #     path: /tmp/infracost.json
+      #     behavior: update
 
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
