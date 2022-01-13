@@ -5,7 +5,7 @@ data "ec_stack" "latest" {
 
 resource "ec_deployment" "example_azure" {
   count = var.deploy_count
-  name = "example-setup"
+  name  = "example-setup"
 
   # Mandatory fields
   region                 = data.ec_stack.latest.region
