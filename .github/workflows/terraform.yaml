@@ -65,6 +65,30 @@ jobs:
         if: steps.plan.outcome == 'failure'
         run: exit 1
 
+      - name: Setup Infracost
+        uses: infracost/actions/setup@v1
+        if: github.event_name == 'pull_request'
+        with:
+          api-key: ${{ secrets.INFRACOST_API_KEY }}
+
+      - name: Generate Infracost JSON
+        if: github.event_name == 'pull_request'
+        run: infracost breakdown --path plan.json --format json --out-file /tmp/infracost.json
+        working-directory: ${{ env.working-directory }}
+        # Env vars can be set using the usual GitHub Actions syntax
+        # See the list of supported Infracost env vars here: https://www.infracost.io/docs/integrations/environment_variables/
+        # env:
+        #   MY_ENV: ${{ secrets.MY_ENV }}
+
+      # See https://github.com/infracost/actions/tree/master/comment
+      # for other inputs such as target-type.
+      - name: Post Infracost comment
+        if: github.event_name == 'pull_request'
+        uses: infracost/actions/comment@v1
+        with:
+          path: /tmp/infracost.json
+          behavior: update
+
       - name: Terraform Apply
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve
